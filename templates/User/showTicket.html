@@ -1,0 +1,125 @@
+{% extends "User/userBase.html" %}
+{% block content %}
+
+        <div id="content" class="col-lg-10 col-sm-10">
+            <!-- content starts -->
+                <div>
+        <ul class="breadcrumb">
+            <li>
+                <a href="#">首页</a>
+            </li>
+            <li>
+                <a href="#">销售系统</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="row">
+    <div class="box col-md-12">
+    <div class="box-inner">
+    <div class="box-header well" data-original-title="">
+        <h2><i class="glyphicon glyphicon-user"></i> 查询条件</h2>
+
+
+    </div>
+
+    <div class="box-content">
+        <!--div class="col-md-2 col-lg-3 col-sm-12 col-xs-12 email-subscription-footer"-->
+
+        <form class="form-horizontal" action="{{link.findbus}}" method="post">
+
+        <div>
+            <div class="mc_embed_signup">
+                <!--form action="//halalit.us3.list-manage.com/subscribe/post?u=444b176aa3c39f656c66381f6&amp;id=eeb0c04e84" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate-->
+                    <div>
+                        <!--label>Keep up with my work</label-->
+
+                        <input type="text" value="" name="起点站" class="email" placeholder="起点站" required>
+                        <input type="text" value="" name="终点站" class="email" placeholder="终点站" required>
+                        <input id="busTime" type="date" name="date" value="2018-11-15" required/>
+
+                        <div class="power_field"><input type="text" name="b_444b176aa3c39f656c66381f6_eeb0c04e84" tabindex="-1" value=""></div>
+                        <div class="input-prepend">
+                        </div>
+                        <br>
+
+                        </div>
+                        <div><input type="submit" value="查询" name="subscribe" class="button"></div>
+                    </div>
+
+            </div>
+
+            </form>
+        </div>
+
+
+        </div>
+        </form>
+    <div class="alert alert-info">查询结果</div>
+    <table class="table table-striped ">
+    <thead>
+    <tr>
+        <th>班次信息</th>
+        <th>出发站</th>
+        <th>终点站</th>
+        <th>
+            发车/到达时间
+        </th>
+        <th>车票价格</th>
+        <th>剩余票数</th>
+        <th>订票</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    <!--乱序，因为自动整理列表的原因。-->
+    {% for bus in buses %}
+
+    <tr>
+        <td class="center" style="font-size:20px">{{bus.BusId}}</td>
+         <td class="center" style="font-size:20px">{{bus.Departure}}</td>
+         <td class="center" style="font-size:20px">{{bus.Destination}}</td>
+         <td class="center">
+            <div>{{bus.BusDate}} {{bus.dTime}}</div>
+            <div>{{bus.BusDate}} {{bus.aTime}}</div>
+        </td>
+        <td class="center">
+            <span  class="center" style="color:black;font-size:20px" >一等票 ￥{{bus.Price}}</span><br/>
+
+        </td>
+        <td class="center">
+            <a class="btn btn-success" href="#">
+                一等票 {{bus.left_num}}张
+            </a><br/>
+
+        </td>
+
+        <form class="form-horizontal" action="{{link.buyTicket}}" method="post">
+            <input name="Username" value={{user}} type="hidden" />
+            <td class="center">
+                <input name="Departure" value={{bus.Departure}}  type="hidden" />
+                <input name="Destination" value={{bus.Destination}}  type="hidden" />
+                <input name="BusId" value={{bus.BusId}}  type="hidden" />
+                <input name="BusDate" value={{bus.BusDate}}  type="hidden" />
+                <button  formmethod="post" id="buyTicketButton" type="submit">订票</button><br/>
+            </td>
+        </form>
+
+    </tr>
+    {% endfor %}
+
+    </tbody>
+    </table>
+    </div>
+    </div>
+    </div>
+
+
+    </div>
+
+
+
+    <!-- content ends -->
+    </div><!--/#content.col-md-0-->
+
+{% endblock %}

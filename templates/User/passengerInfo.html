@@ -1,0 +1,91 @@
+{% extends "User/userBase.html" %}
+{% block content %}
+
+        <div id="content" class="col-lg-10 col-sm-10">
+            <!-- content starts -->
+            <div>
+    <ul class="breadcrumb">
+        <li>
+            <a href="#">首页</a>
+        </li>
+        <li>
+            <a href="#">用户信息</a>
+        </li>
+    </ul>
+</div>
+
+<div class="row">
+
+    <div class="box col-md-12">
+        <div class="box-inner">
+             <div class="box-header well" data-original-title="">
+                    <h2><i class="glyphicon glyphicon-calendar"></i> 乘车人信息</h2>
+
+
+                </div>
+                <div class="box-content">
+                    <table class="table table-striped table-bordered bootstrap-datatable datatable responsive">
+    <thead>
+    <tr>
+        <th>姓名</th>
+        <th>性别</th>
+        <th>出生日期</th>
+        <th>身份证号</th>
+        <th>联系电话</th>
+        <th>更改信息</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    {% for p in passengers %}
+    <tr>
+        <form id="pInfoForm" method="post">
+        <input name="card" value="{{p.card}}" type="hidden"/>
+        <td class="center">{{p.name}}</td>
+        <td class="center">{{p.sex}}</td>
+        <td class="center">{{p.birthday}}</td>
+        <td class="center">{{p.card}}</td>
+        <td class="center">{{p.phone}}</td>
+        <td class="center">
+            <button class="btn btn-success" >
+                <i class="glyphicon glyphicon-zoom-in icon-white"></i>
+                修改联系方式
+            </button>
+
+            <button class="btn btn-danger" formmethod="post" type="submit" >
+                <i class="glyphicon glyphicon-trash icon-white"></i>
+                删除乘车人信息
+            </button>
+        </td>
+        </form>
+    </tr>
+    {% endfor %}
+
+    </tbody>
+
+    </table>
+
+                       <tr>
+                        <td>
+                            <a href="#" class="btn btn-info btn-setting">添加</a>
+                        </td>
+                        <td></td>
+                         </tr>
+
+
+
+
+                </div>
+
+    </table>
+                </div>
+
+        </td>
+    </tr>
+    </tbody>
+    </table>
+                </div>
+        </div>
+    </div>
+
+{% endblock %}

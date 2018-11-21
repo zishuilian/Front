@@ -1,0 +1,256 @@
+{% extends 'Admin/adminBase.html' %}
+{% block tabCard%}
+  <script>
+      window.onload = function() {
+
+          var obj0 = document.getElementById('busnum');
+          var obj1 = document.getElementById('destination');
+          var obj2 = document.getElementById('source');
+        var obj3 = document.getElementById('dTime');
+        var obj4 = document.getElementById('aTime');
+        var obj5 = document.getElementById('Price');
+        var obj6 = document.getElementById('left_num');
+        var bt_addBus = document.getElementById('addBusButton');
+        var addForm = document.getElementById('addBusForm');
+        //绑定鼠标进入事件
+
+        bt_addBus.addEventListener('click',
+        function(){
+
+        if(obj0.value.length==0 || obj1.value.length==0 || obj2.value.length==0||obj3.value.length==0 || obj4.value.length==0 || obj5.value.length==0||
+        obj6.value.length==0 ){
+                alert("输入不能为空！");
+            }else{
+                addForm.action = "managerAddBus";
+                addForm.method = "post";
+                <!--alert(signUpForm);-->
+                addForm.submit();
+            }
+        },false);
+
+         var obj7 = document.getElementById('changeDTime');
+         var obj8 = document.getElementById('changeATime');
+          var obj9 = document.getElementById('changePrice');
+        var obj10 = document.getElementById('changeLeft_num');
+        var bt_changeBus = document.getElementById('changeBusButton');
+        var changeForm = document.getElementById('changeBusForm');
+        //绑定鼠标进入事件
+
+        bt_changeBus.addEventListener('click',
+        function(){
+        if(obj7.value.length==0 || obj8.value.length==0||obj9.value.length==0||obj10.value.length==0){
+                alert("输入不能为空！");
+            }else{
+                changeForm.action = "managerChangeBus";
+                changeForm.method = "post";
+                <!--alert(signUpForm);-->
+                changeForm.submit();
+            }
+        },false);
+
+         $('.modifyBus').click(function (e) {
+              e.preventDefault();
+              $('#modifyModal').modal('show');
+          });
+
+          $('.addBus').click(function (e) {
+              e.preventDefault();
+              $('#addModal').modal('show');
+          });
+
+
+      };
+  </script>
+<ul class="breadcrumb">
+        <li>
+            <a href="#">首页</a>
+        </li>
+        <li>
+            <a href="#">售票系统</a>
+        </li>
+</ul>
+{% endblock %}
+
+{% block content %}
+   <div class="row">
+    <div class="box col-md-12">
+    <div class="box-inner">
+    <div class="box-header well" data-original-title="">
+        <h2><i class="glyphicon glyphicon-user"></i> 查询条件</h2>
+
+        <div class="box-icon">
+            <a href="#" class="btn btn-setting btn-round btn-default"><i class="glyphicon glyphicon-cog"></i></a>
+            <a href="#" class="btn btn-minimize btn-round btn-default"><i
+                    class="glyphicon glyphicon-chevron-up"></i></a>
+            <a href="#" class="btn btn-close btn-round btn-default"><i class="glyphicon glyphicon-remove"></i></a>
+        </div>
+    </div>
+    <div class="box-content">
+        <!--div class="col-md-2 col-lg-3 col-sm-12 col-xs-12 email-subscription-footer"-->
+        <form class="form-horizontal" action="{{link.managerFindBus}}" method="post">
+        <div>
+            <div class="mc_embed_signup">
+                <!--form action="//halalit.us3.list-manage.com/subscribe/post?u=444b176aa3c39f656c66381f6&amp;id=eeb0c04e84" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate-->
+                    <div>
+                        <!--label>Keep up with my work</label-->
+                        <input type="text" value="" name="Departure" class="email" placeholder="起点站" required>
+                        <input type="text" value="" name="Destination" class="email" placeholder="终点站" required>
+                        <input type="date" value="2019-01-07" name="BusDate"  required/></br>
+                        <div class="power_field"><input type="text" name="b_444b176aa3c39f656c66381f6_eeb0c04e84" tabindex="-1" value=""></div></br>
+
+                        <div><input type="submit" value="查询" class="button btn-success" ></div>
+                    </div>
+
+            </div>
+        </div>
+        </form>
+        <div class="modal fade" id="modifyModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                    <h3>修改车次</h3>
+                </div>
+                <div class="modal-body">
+                   <div class="box-content">
+                <form  class="form-horizontal" id="changeBusForm" name="changeBusForm" action="manageChangeBus" method="post">
+                    <fieldset>
+                    <div class="form-group">
+                        <label for="changeDTime">发车时间</label>
+                        <input type="text" class="form-control" id="changeDTime" name="changeDTime" placeholder="发车时间">
+                    </div>
+                    <div class="form-group">
+                        <label for="changeATime">到达时间</label>
+                        <input type="text" class="form-control" id="changeATime" name="changeATime" placeholder="到达时间">
+                    </div>
+                    <div class="form-group">
+                        <label for="changePrice">票价</label>
+                        <input type="text" class="form-control" id="changePrice" name="changePrice" placeholder="票价">
+                    </div>
+                    <div class="form-group">
+                        <label for="changeLeft_num">剩余票数</label>
+                        <input type="text" class="form-control" id="changeLeft_num" name="changeLeft_num" placeholder="剩余票数">
+                    </div>
+                    </fieldset>
+                </form>
+                       <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" id="changeBusButton" >确定</button>
+                    <button href="#" class="btn btn-default" data-dismiss="modal">取消</button>
+                    </div>
+            </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+        <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabell"
+         aria-hidden="true">
+
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                    <h3>新增车次</h3>
+                </div>
+                <div class="modal-body">
+                   <div class="box-content">
+                <form  class="form-horizontal" id="addBusForm" name="addBusForm" action="managerAddBus" method="post">
+                    <fieldset>
+                        <div class="form-group">
+                        <label for="busnum">车次ID</label>
+                        <input type="text" class="form-control" id="busnum" name="reg_busnum" placeholder="车次ID" required>
+                    </div>
+                        <div class="form-group">
+                        <label for="source">发车地</label>
+                        <input type="text" class="form-control" id="source" name="reg_source" placeholder="发车地" required>
+                    </div>
+                        <div class="form-group">
+                        <label for="destination">目的地</label>
+                        <input type="text" class="form-control" id="destination" name="reg_destination" placeholder="目的地" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="username">发车时间</label>
+                        <input type="text" class="form-control" id="dTime" name="reg_username" placeholder="发车时间" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">到达时间</label>
+                        <input type="text" class="form-control" id="aTime" name="reg_password" placeholder="到达时间" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="repassword">票价</label>
+                        <input type="text" class="form-control" id="Price" name="reg_repassword" placeholder="票价" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="idcard">剩余票数</label>
+                        <input type="text" class="form-control" id="left_num" name="reg_idcard" placeholder="剩余票数" required>
+                    </div>
+                    </fieldset>
+                </form>
+                       <div class="modal-footer">
+                    <button class="btn btn-primary" id="addBusButton" >提交</button>
+                    <button href="#" class="btn btn-default" data-dismiss="modal">取消</button>
+                    </div>
+            </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="alert alert-info">查询结果</div>
+        <div>
+         <button  class="btn btn-warning addBus glyphicon glyphicon-zoom-out icon-white"  >新增</button>
+        </div></br>
+    <table class="table table-striped table-bordered table-hover bootstrap-datatable datatable responsive">
+    <thead>
+    <tr>
+        <th>车次ID</th>
+        <th>发车地</th>
+        <th>目的地</th>
+        <th>发车时间</th>
+        <th>到达时间</th>
+        <th>票价</th>
+        <th>剩余票数</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for bus in buses %}
+    <tr>
+             <td class="center">{{bus.BusId}}</td>
+             <td class="center">{{bus.Departure}}</td>
+             <td class="center">{{bus.Destination}}</td>
+             <td class="center">{{bus.BusDate}} {{bus.dTime}}</td>
+             <td class="center">{{bus.BusDate}} {{bus.aTime}}</td>
+             <td class="center">
+                 <span class="center"> ￥{{bus.Price}}</span><br/>
+             </td>
+             <td class="center">{{bus.left_num}}</td>
+
+            <form class="form-horizontal" action="{{link.managerAddBus}}" method="post">
+                <td class="center">
+                    <input name="Departure" value={{bus.Departure}}  type="hidden" />
+                    <input name="Destination" value={{bus.Destination}}  type="hidden" />
+                    <input name="BusId" value={{bus.BusId}}  type="hidden" />
+                    <input name="BusDate" value={{bus.BusDate}}  type="hidden" />
+
+                    <button  class="btn btn-success modifyBus glyphicon glyphicon-zoom-in icon-white" id="modifyBusButton" >修改</button>
+                    <button  class="btn btn-danger glyphicon glyphicon-trash icon-white" id="deleteBusButton" >删除</button>
+                </td>
+            </form>
+
+    </tr>
+    {% endfor %}
+    </tbody>
+    </table>
+    </div>
+    </div>
+    </div>
+    <!--/span-->
+
+    </div><!--/row-->
+{% endblock %}
+
+
+

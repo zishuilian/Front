@@ -1,0 +1,262 @@
+{% extends 'Admin/adminBase.html' %}
+{% block tabCard%}
+<ul class="breadcrumb">
+        <li>
+            <a href="#">首页</a>
+        </li>
+        <li>
+            <a href="#">营收结算</a>
+        </li>
+</ul>
+{% endblock %}
+
+{% block content %}
+<script>
+window.onload=function(){
+if ($("#sincos").length) {
+    var sin = [], cos = [];
+
+    for (var i = 0; i < 13; i += 1) {
+        sin.push([i, Math.cos(i)/i]);
+
+    }
+
+    var plot = $.plot($("#sincos"),
+        [
+            { data: sin, label: "cos(i)/i"},
+
+        ], {
+            series: {
+                lines: { show: true  },
+                points: { show: true }
+            },
+            grid: { hoverable: true, clickable: true, backgroundColor: { colors: ["#fff", "#eee"] } },
+            yaxis: { ticks: 10, min: -1.2, max: 1.2 },
+            colors: ["#539F2E", "#3C67A5"]
+        });
+
+    function showTooltip(x, y, contents) {
+        $('<div id="tooltip">' + contents + '</div>').css({
+            position: 'absolute',
+            display: 'none',
+            top: y + 5,
+            left: x + 5,
+            border: '1px solid #fdd',
+            padding: '2px',
+            'background-color': '#dfeffc',
+            opacity: 0.80
+        }).appendTo("body").fadeIn(200);
+    }
+
+    var previousPoint = null;
+    $("#sincos").bind("plothover", function (event, pos, item) {
+        $("#x").text(pos.x.toFixed(2));
+        $("#y").text(pos.y.toFixed(2));
+
+        if (item) {
+            if (previousPoint != item.dataIndex) {
+                previousPoint = item.dataIndex;
+
+                $("#tooltip").remove();
+                var x = item.datapoint[0].toFixed(2),
+                    y = item.datapoint[1].toFixed(2);
+
+                showTooltip(item.pageX, item.pageY,
+                    item.series.label + " of " + x + " = " + y);
+            }
+        }
+        else {
+            $("#tooltip").remove();
+            previousPoint = null;
+        }
+    });
+
+
+    $("#sincos").bind("plotclick", function (event, pos, item) {
+        if (item) {
+            $("#clickdata").text("You clicked point " + item.dataIndex + " in " + item.series.label + ".");
+            plot.highlight(item.series, item.datapoint);
+        }
+    });
+};
+if ($("#flotchart").length) {
+    var d1 = [];
+    for (var i = 0; i < 13; i += 1)
+        d1.push([i, Math.sin(i)]);
+
+
+
+    $.plot($("#flotchart"), [
+        { label: "sin(x)", data: d1},
+
+    ], {
+        series: {
+            lines: { show: true },
+            points: { show: true }
+        },
+
+        yaxis: {
+            ticks: 10,
+            min: -1.2,
+            max: 1.2
+        },
+        grid: {
+            backgroundColor: { colors: ["#fff", "#eee"] }
+        }
+    });
+}
+}
+
+</script>
+ <form class="form-horizontal" action="ticketHistory" method="post">
+        <div>
+            <div class="mc_embed_signup">
+                <!--form action="//halalit.us3.list-manage.com/subscribe/post?u=444b176aa3c39f656c66381f6&amp;id=eeb0c04e84" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate-->
+                    <div>
+                        <!--label>Keep up with my work</label-->
+                        <input type="text" value="" name="beginTime" class="email" placeholder="出发地点" required>
+                        <input type="text" value="" name="endTime" class="email" placeholder="到达地点" required>
+                        <input type="date" value="2019-01-07" name="beginDate"  required/>
+                        <input type="date" value="2019-01-08" name="endDate"  required/>
+                        <div class="power_field"><input type="text" name="b_444b176aa3c39f656c66381f6_eeb0c04e84" tabindex="-1" value=""></div>
+                        <br>
+                        <br>
+
+                        <div><input type="submit" value="查询" class="button btn-success" ></div>
+                    </div>
+
+            </div>
+        </div>
+        </form>
+ <div class="row">
+
+    <div class="box col-md-12">
+        <div class="box-inner">
+            <div class="box-header well">
+                <h2><i class="glyphicon glyphicon-list-alt"></i> 营业额统计</h2>
+                <div class="box-icon">
+                    <a href="#" class="btn btn-setting btn-round btn-default"><i
+                            class="glyphicon glyphicon-cog"></i></a>
+                    <a href="#" class="btn btn-minimize btn-round btn-default"><i
+                            class="glyphicon glyphicon-chevron-up"></i></a>
+                    <a href="#" class="btn btn-close btn-round btn-default"><i
+                            class="glyphicon glyphicon-remove"></i></a>
+                </div>
+            </div>
+            <div class="box-content">
+                <div id="sincos" class="center" style="height:300px"></div>
+                <p id="hoverdata">Mouse position at (<span id="x">0</span>, <span id="y">0</span>).
+                    <span id="clickdata"></span></p>
+            </div>
+        </div>
+    </div>
+
+      <div class="box col-md-12">
+        <div class="box-inner">
+            <div class="box-header well">
+                <h2><i class="glyphicon glyphicon-list-alt"></i> 售票统计</h2>
+
+                <div class="box-icon">
+                    <a href="#" class="btn btn-setting btn-round btn-default"><i
+                            class="glyphicon glyphicon-cog"></i></a>
+                    <a href="#" class="btn btn-minimize btn-round btn-default"><i
+                            class="glyphicon glyphicon-chevron-up"></i></a>
+                    <a href="#" class="btn btn-close btn-round btn-default"><i
+                            class="glyphicon glyphicon-remove"></i></a>
+                </div>
+            </div>
+            <div class="box-content">
+                <div id="flotchart" class="center" style="height:300px"></div>
+            </div>
+        </div>
+    </div>
+
+</div><!--/row-->
+
+<br>
+ <table class="table table-striped table-bordered table-hover bootstrap-datatable datatable responsive">
+    <thead>
+    <tr>
+        <th>车次ID</th>
+        <th>发车地</th>
+        <th>目的地</th>
+        <th>日期</th>
+        <th>总乘客数</th>
+        <th>总营收</th>
+    </thead>
+    <tbody>
+    {% for bus in buses %}
+    <tr>
+             <td class="center">{{bus.BusId}}</td>
+             <td class="center">{{bus.departure}}</td>
+             <td class="center">{{bus.destination}}</td>
+             <td class="center">{{bus.date}}</td>
+             <td class="center">
+                 <span class="center"> ￥{{bus.totalCustomer}}</span><br/>
+             </td>
+             <td class="center">{{bus.totalRevenue}}</td>
+
+            <form class="form-horizontal" action="{{link.managerAddBus}}" method="post">
+                <td class="center">
+                    <input name="Departure" value={{bus.Departure}}  type="hidden" />
+                    <input name="Destination" value={{bus.Destination}}  type="hidden" />
+                    <input name="BusId" value={{bus.BusId}}  type="hidden" />
+                    <input name="BusDate" value={{bus.BusDate}}  type="hidden" />
+
+                    <button  class="btn btn-success modifyBus glyphicon glyphicon-zoom-in icon-white" id="modifyBusButton" >修改</button>
+                    <button  class="btn btn-danger glyphicon glyphicon-trash icon-white" id="deleteBusButton" >删除</button>
+                </td>
+            </form>
+
+    </tr>
+    {% endfor %}
+    </tbody>
+    </table>
+
+<div class="row">
+    <div class="box col-md-4">
+        <div class="box-inner">
+            <div class="box-header well" data-original-title="">
+                <h2><i class="glyphicon glyphicon-list-alt"></i> 销售份额</h2>
+
+                <div class="box-icon">
+                    <a href="#" class="btn btn-setting btn-round btn-default"><i
+                            class="glyphicon glyphicon-cog"></i></a>
+                    <a href="#" class="btn btn-minimize btn-round btn-default"><i
+                            class="glyphicon glyphicon-chevron-up"></i></a>
+                    <a href="#" class="btn btn-close btn-round btn-default"><i
+                            class="glyphicon glyphicon-remove"></i></a>
+                </div>
+            </div>
+            <div class="box-content">
+                <div id="piechart" style="height:300px"></div>
+            </div>
+        </div>
+    </div>
+
+
+  <div class="box col-md-4">
+        <div class="box-inner">
+            <div class="box-header well" data-original-title="">
+                <h2><i class="glyphicon glyphicon-list-alt"></i> 销售份额</h2>
+
+                <div class="box-icon">
+                    <a href="#" class="btn btn-setting btn-round btn-default"><i
+                            class="glyphicon glyphicon-cog"></i></a>
+                    <a href="#" class="btn btn-minimize btn-round btn-default"><i
+                            class="glyphicon glyphicon-chevron-up"></i></a>
+                    <a href="#" class="btn btn-close btn-round btn-default"><i
+                            class="glyphicon glyphicon-remove"></i></a>
+                </div>
+            </div>
+            <div class="box-content">
+                <div id="donutchart" style="height: 300px;">
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div><!--/row-->
+{% endblock %}
+
+

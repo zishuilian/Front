@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--
+        ===
+        This comment should NOT be removed.
+
+        Charisma v2.0.0
+
+        Copyright 2012-2014 Muhammad Usman
+        Licensed under the Apache License v2.0
+        http://www.apache.org/licenses/LICENSE-2.0
+
+        http://usman.it
+        http://twitter.com/halalit_usman
+        ===
+    -->
+    <meta charset="utf-8">
+    <title>Free HTML5 Bootstrap Admin Template</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Charisma, a fully featured, responsive, HTML5, Bootstrap admin template.">
+    <meta name="author" content="Muhammad Usman">
+    <script>
+
+     window.onload = function(){
+        var obj0 = document.getElementById('username');
+        var obj1 = document.getElementById('password');
+        var obj2 = document.getElementById('repassword');
+        var bt_signUp = document.getElementById('signUpButton');
+        var signUpForm = document.getElementById('signUpForm');
+        //绑定鼠标进入事件
+        bt_signUp.addEventListener('click',
+        function(){
+            if(obj1.value != obj2.value){
+                alert("两次输入的密码不一致！");
+            }
+            else if(obj1.value.length==0 || obj2.value.length==0 || obj0.value.length==0){
+                alert("输入不能为空！");
+            }else{
+                signUpForm.action = "register";
+                signUpForm.method = "post";
+                <!--alert(signUpForm);-->
+                signUpForm.submit();
+            }
+        },false);
+
+        var loginUserName = document.getElementById('loginUserName');
+        var loginPassWord = document.getElementById('loginPassWord');
+        var loginButton = document.getElementById('loginButton');
+        var loginForm = document.getElementById('loginForm');
+
+        loginButton.addEventListener('click', function(){
+
+            if(loginUserName.value.length==0 || loginPassWord.value.length==0){
+                alert("输入不能为空！");
+            }else{
+                loginForm.action = 'logincookie';
+                loginForm.method = "post";
+                loginForm.submit();
+            }
+        }, false);
+    }
+
+     </script>
+    <!-- The styles -->
+    <link id="bs-css" href="css/bootstrap-cerulean.min.css" rel="stylesheet">
+
+    <link href="css/charisma-app.css" rel="stylesheet">
+    <link href='bower_components/fullcalendar/dist/fullcalendar.css' rel='stylesheet'>
+    <link href='bower_components/fullcalendar/dist/fullcalendar.print.css' rel='stylesheet' media='print'>
+    <link href='bower_components/chosen/chosen.min.css' rel='stylesheet'>
+    <link href='bower_components/colorbox/example3/colorbox.css' rel='stylesheet'>
+    <link href='bower_components/responsive-tables/responsive-tables.css' rel='stylesheet'>
+    <link href='bower_components/bootstrap-tour/build/css/bootstrap-tour.min.css' rel='stylesheet'>
+    <link href='css/jquery.noty.css' rel='stylesheet'>
+    <link href='css/noty_theme_default.css' rel='stylesheet'>
+    <link href='css/elfinder.min.css' rel='stylesheet'>
+    <link href='css/elfinder.theme.css' rel='stylesheet'>
+    <link href='css/jquery.iphone.toggle.css' rel='stylesheet'>
+    <link href='css/uploadify.css' rel='stylesheet'>
+    <link href='css/animate.min.css' rel='stylesheet'>
+
+    <!-- jQuery -->
+    <script src="bower_components/jquery/jquery.min.js"></script>
+
+    <!-- The HTML5 shim, for IE6-8 support of HTML5 elements -->
+
+
+    <!-- The fav icon -->
+    <link rel="shortcut icon" href="img/favicon.ico">
+
+</head>
+
+<body>
+<div class="ch-container">
+    <div class="row">
+        
+    <div class="row">
+        <div class="col-md-12 center login-header">
+            <h2>Welcome to Charisma</h2>
+        </div>
+        <!--/span-->
+    </div><!--/row-->
+
+    <div class="row">
+        <div class="well col-md-5 center login-box">
+            <div class="alert alert-info">
+                Please login with your Username and Password.
+            </div>
+            <form class="form-horizontal" id="loginForm" action='logincookie' method="post">
+                <fieldset>
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-user red"></i></span>
+                        <input type="text" class="form-control" name="loginUserName" id="loginUserName" placeholder="用户名">
+                    </div>
+                    <div class="clearfix"></div><br>
+
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock red"></i></span>
+                        <input type="password" class="form-control" name="loginPassWord" id="loginPassWord" placeholder="密码">
+                    </div>
+                    <div class="clearfix"></div>
+
+                    <div class="input-prepend">
+                        <label class="remember" for="remember"><input type="checkbox" id="remember">Remember me</label>
+                    </div>
+                    <div class="clearfix"></div>
+
+
+                </fieldset>
+            </form>
+                    <p class="center col-md-5">
+                        <button type="submit" class="btn btn-primary" id="loginButton">登录</button>
+                    </p>
+
+                    <p class="center col-md-5">
+                        <button type="submit" form="loginForm" class="btn btn-primary btn-setting">注册</button>
+                    </p>
+
+        </div>
+          <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                    <h3>注册</h3>
+                </div>
+                <div class="modal-body">
+                   <div class="box-content">
+                <form  class="form-horizontal" id="signUpForm" name="signUpForm" action="register" method="post">
+                    <fieldset>
+                    <div class="form-group">
+                        <label for="username">账号</label>
+                        <input type="text" class="form-control" id="username" name="reg_username" placeholder="账号">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">密码</label>
+                        <input type="text" class="form-control" id="password" name="reg_password" placeholder="密码">
+                    </div>
+                    <div class="form-group">
+                        <label for="repassword">请再次输入密码</label>
+                        <input type="text" class="form-control" id="repassword" name="reg_repassword" placeholder="密码">
+                    </div>
+                    <div class="form-group">
+                        <label for="idcard">身份证号</label>
+                        <input type="text" class="form-control" id="idcard" name="reg_idcard" placeholder="身份证号">
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">联系电话</label>
+                        <input type="text" class="form-control" id="phone" name="reg_phone" placeholder="联系电话">
+                    </div>
+                    </fieldset>
+                </form>
+                       <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" id="signUpButton" >注册</button>
+                    <button href="#" class="btn btn-default" data-dismiss="modal">取消</button>
+                    </div>
+            </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+        <!--/span-->
+    </div><!--/row-->
+</div><!--/fluid-row-->
+
+</div><!--/.fluid-container-->
+
+<!-- external javascript -->
+
+<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+<!-- library for cookie management -->
+<script src="js/jquery.cookie.js"></script>
+<!-- calender plugin -->
+<script src='bower_components/moment/min/moment.min.js'></script>
+<script src='bower_components/fullcalendar/dist/fullcalendar.min.js'></script>
+<!-- data table plugin -->
+<script src='js/jquery.dataTables.min.js'></script>
+
+<!-- select or dropdown enhancer -->
+<script src="bower_components/chosen/chosen.jquery.min.js"></script>
+<!-- plugin for gallery image view -->
+<script src="bower_components/colorbox/jquery.colorbox-min.js"></script>
+<!-- notification plugin -->
+<script src="js/jquery.noty.js"></script>
+<!-- library for making tables responsive -->
+<script src="bower_components/responsive-tables/responsive-tables.js"></script>
+<!-- tour plugin -->
+<script src="bower_components/bootstrap-tour/build/js/bootstrap-tour.min.js"></script>
+<!-- star rating plugin -->
+<script src="js/jquery.raty.min.js"></script>
+<!-- for iOS style toggle switch -->
+<script src="js/jquery.iphone.toggle.js"></script>
+<!-- autogrowing textarea plugin -->
+<script src="js/jquery.autogrow-textarea.js"></script>
+<!-- multiple file upload plugin -->
+<script src="js/jquery.uploadify-3.1.min.js"></script>
+<!-- history.js for cross-browser state change on ajax -->
+<script src="js/jquery.history.js"></script>
+<!-- application script for Charisma demo -->
+<script src="js/charisma.js"></script>
+
+
+</body>
+</html>
